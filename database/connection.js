@@ -3,7 +3,7 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 
-let connectionString = process.env.DATABASE_URL;
+let connectionString = process.env.DEV_DATABASE_URL;
 
 if (process.env.NODE_ENV === "production") {
   connectionString = process.env.DATABASE_URL;
