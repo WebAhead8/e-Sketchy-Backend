@@ -58,31 +58,10 @@ function delProduct(id) {
     });
 }
 
-function updatePrice(data) {
-  return db
-    .query(`UPDATE product SET price = $1 WHERE id =$2`, [data.price, data.id])
-    .then((result) => {
-      return result;
-    });
-}
-
-function updateQuantity(data) {
-  return db
-    .query(`UPDATE product SET quantity = $1 WHERE id =$2`, [
-      data.quantity,
-      data.id,
-    ])
-    .then((result) => {
-      return result;
-    });
-}
-
 module.exports = {
   getAllProducts,
   getProductId,
   addProduct,
-  updateQuantity,
-  updatePrice,
   delProduct,
   getProductName,
   getProductCat,
