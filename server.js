@@ -4,9 +4,11 @@ const products = require("./handlers/ProductsHandler");
 const comments = require("./handlers/CommentsHandler");
 const users = require("./handlers/users");
 const authUser = require("./middleware/auth");
+const errorHandler = require("./middleware/error");
 
 const server = express();
 server.use(express.json());
+server.use(errorHandler);
 
 server.get("/", (reg, res) => {
   res.send("<h1> HELLOOOOOOOOOOO </h1>");
