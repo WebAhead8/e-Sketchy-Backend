@@ -1,4 +1,3 @@
-const db = require("../database/db");
 const db = require("../database/connection");
 
 function createUser(user) {
