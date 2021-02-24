@@ -41,6 +41,7 @@ function getProductCat(req, res, next) {
 
 function postProduct(req, res, next) {
   const newProd = req.body;
+  console.log(newProd);
   model
     .addProduct(newProd)
     .then((product) => {

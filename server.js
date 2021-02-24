@@ -2,6 +2,8 @@ const express = require("express");
 const PORT = process.env.PORT || 3000;
 const products = require("./handlers/ProductsHandler");
 const comments = require("./handlers/CommentsHandler");
+const users = require("./handlers/users");
+
 const server = express();
 server.use(express.json());
 
@@ -17,13 +19,14 @@ server.get("/products/cate/:cat", products.getProductCat);
 server.post("/products", products.postProduct);
 server.delete("/products/:id", products.delProduct);
 
+// Comments Requests
 server.post("/comment", comments.postComment);
 server.delete("/comment/:id", comments.delComment);
 
 // Users Requests
-// server.get("/users/:id", users.get);
-// server.post("/users", users.post);
-// server.post("/login", users.login);
-// server.put("/users/:id", users.put);
+server.get("/users/:id", users.get);
+server.post("/users", users.postUsers);
+server.get("/login", users.login);
+server.put("/users/:id", users.put);
 
 server.listen(PORT, () => console.log(`Listening on http://localhost:${PORT}`));
