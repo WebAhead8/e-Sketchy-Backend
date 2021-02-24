@@ -15,8 +15,9 @@ function get(req, res, next) {
     .catch(next);
 }
 
-function post(req, res, next) {
+function postUsers(req, res, next) {
   const userData = req.body;
+  console.log("printing user data from users ", req.body);
   model
     .createUser(userData)
     .then((user) => {
@@ -50,6 +51,7 @@ function login(req, res, next) {
     })
     .catch(next);
 }
+
 function put(req, res, next) {
   const userId = req.params.id;
   const newUser = req.body;
@@ -64,4 +66,4 @@ function put(req, res, next) {
     .catch(next);
 }
 
-module.exports = { get, post, login, put };
+module.exports = { get, postUsers, login, put };
