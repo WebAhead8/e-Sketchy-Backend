@@ -35,7 +35,7 @@ function post(req, res, next) {
 
 function login(req, res, next) {
   const email = req.body.email;
-  const password = req.body.password;
+  const password = req.body.user_pass;
   model
     .getUser(email)
     .then((user) => {
