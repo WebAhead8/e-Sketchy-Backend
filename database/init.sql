@@ -3,7 +3,7 @@ DROP TABLE IF EXISTS users, products, comments, cart, blog CASCADE;
 
 CREATE TABLE users(
     id SERIAL PRIMARY KEY,
-    username VARCHAR(255) NOT NULL,
+    username VARCHAR(255) ,
     user_pass VARCHAR(255),
     email VARCHAR(255),
     loc VARCHAR(255)
@@ -44,10 +44,10 @@ CREATE TABLE blog (
 );
 
 INSERT INTO users (username, user_pass, email, loc) VALUES
-  ('Haneen', 123421, 'haneen@gmail.com', 'Nazareth'),
-  ('Bushra', 9876789, 'boshee@gmail.com', 'Nazareth' ),
-  ('May', 41114, 'may@gmail.com', 'Nazareth'),
-  ('Khaled', 727272, 'khaled@gmail.com', 'Sakhnin')
+  ('Haneen', '123421', 'haneen@gmail.com', 'Nazareth'),
+  ('Bushra', '9876789', 'boshee@gmail.com', 'Nazareth' ),
+  ('May', '41114', 'may@gmail.com', 'Nazareth'),
+  ('Khaled', '727272', 'khaled@gmail.com', 'Sakhnin')
 
 ;
 
