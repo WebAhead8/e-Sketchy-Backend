@@ -1,5 +1,5 @@
 const express = require("express");
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 const products = require("./handlers/ProductsHandler");
 const comments = require("./handlers/CommentsHandler");
 const users = require("./handlers/users");
@@ -11,7 +11,7 @@ server.use(express.json());
 server.use(errorHandler);
 
 server.get("/", (reg, res) => {
-  res.send("<h1> HELLOOOOOOOOOOO </h1>");
+  res.send("<h1> Welcome To e-Sketchy API </h1>");
 });
 
 // Products Requests
