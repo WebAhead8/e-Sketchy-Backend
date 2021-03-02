@@ -4,8 +4,11 @@ const products = require("./handlers/ProductsHandler");
 const comments = require("./handlers/CommentsHandler");
 const users = require("./handlers/users");
 const errorHandler = require("./middleware/error");
+const cors=require("cors");
+
 
 const server = express();
+server.use(cors());
 server.use(express.json());
 server.use(errorHandler);
 
