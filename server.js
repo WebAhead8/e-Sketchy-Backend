@@ -4,8 +4,7 @@ const products = require("./handlers/ProductsHandler");
 const comments = require("./handlers/CommentsHandler");
 const users = require("./handlers/users");
 const errorHandler = require("./middleware/error");
-const cors=require("cors");
-
+const cors = require("cors");
 
 const server = express();
 server.use(cors());
@@ -27,6 +26,7 @@ server.delete("/products/:id", products.delProduct);
 // Comments Requests
 server.post("/comment", comments.postComment);
 server.delete("/comment/:id", comments.delComment);
+server.get("/comments/:id", comments.getComments);
 
 // Users Requests
 server.get("/users/:id", users.get);

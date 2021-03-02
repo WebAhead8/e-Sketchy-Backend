@@ -22,7 +22,17 @@ function delComment(id) {
       return result;
     });
 }
+
+function getComments(id) {
+  return db
+    .query(`SELECT * FROM comments WHERE id = ($1)`, [id])
+    .then((result) => {
+      return result.rows;
+    });
+}
+
 module.exports = {
   addComment,
   delComment,
+  getComments,
 };

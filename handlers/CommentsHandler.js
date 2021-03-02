@@ -21,7 +21,18 @@ function delComment(req, res, next) {
     .catch(next);
 }
 
+function getComments(req, res, next) {
+  const id = req.params.id;
+  model
+    .getComments(id)
+    .then((data) => {
+      res.send(data);
+    })
+    .catch(next);
+}
+
 module.exports = {
+  getComments,
   postComment,
   delComment,
 };
