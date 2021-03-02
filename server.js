@@ -19,7 +19,7 @@ server.get("/products", products.getAllProducts);
 server.get("/products/:id", products.getProductId);
 server.get("/products/search/:name", products.getProductName);
 server.get("/products/cate/:cat", products.getProductCat);
-server.post("/products", authUser, products.postProduct);
+server.post("/products", products.postProduct);
 server.delete("/products/:id", authUser, products.delProduct);
 
 // Comments Requests
@@ -27,9 +27,12 @@ server.post("/comment", authUser, comments.postComment);
 server.delete("/comment/:id", authUser, comments.delComment);
 
 // Users Requests
+server.get("/users/", users.getAll);
 server.get("/users/:id", users.get);
 server.post("/users", authUser, users.postUsers);
 server.get("/login", users.login);
+server.post("/login/me", users.login);
+server.post("/login", users.login);
 server.put("/users/:id", authUser, users.put);
 
 server.listen(PORT, () => console.log(`Listening on http://localhost:${PORT}`));

@@ -1,5 +1,13 @@
 const db = require("../database/connection");
 
+function getAllUser() {
+  return db.query("select * from users").then((data) => {
+    if (!data.rows.length)
+      throw new Error(`No user with email '${email}' found`);
+    return data.rows;
+  });
+}
+
 function createUser(user) {
   const values = [user.username, user.user_pass, user.email, user.loc];
   console.log(values);
@@ -56,4 +64,5 @@ module.exports = {
   getUser,
   getUserById,
   updateUser,
+  getAllUser,
 };
