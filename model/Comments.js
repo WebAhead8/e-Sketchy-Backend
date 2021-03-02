@@ -2,6 +2,7 @@ const path = require("path");
 const db = require(path.join(__dirname, "..", "database", "connection"));
 
 function addComment(cmm) {
+  ///the error come from here--> the comment in the function is array and take three values, wait for bushra to finish the login
   const comentEntry = [cmm.comment, cmm.user_id, cmm.prod_id];
   console.log("query " + comentEntry);
   return db
@@ -21,7 +22,17 @@ function delComment(id) {
       return result;
     });
 }
+
+function getComments(id) {
+  return db
+    .query(`SELECT * FROM comments WHERE id = ($1)`, [id])
+    .then((result) => {
+      return result.rows;
+    });
+}
+
 module.exports = {
   addComment,
   delComment,
+  getComments,
 };

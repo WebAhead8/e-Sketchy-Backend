@@ -1,8 +1,8 @@
 const model = require("../model/Comments");
 
 function postComment(req, res, next) {
-  const newComment = req.body;
-  console.log("handler " + req.body);
+  const newComment = req.body.addComment;
+  console.log("handler ", req.body);
   model
     .addComment(newComment)
     .then((Comments) => {
@@ -21,7 +21,18 @@ function delComment(req, res, next) {
     .catch(next);
 }
 
+function getComments(req, res, next) {
+  const id = req.params.id;
+  model
+    .getComments(id)
+    .then((data) => {
+      res.send(data);
+    })
+    .catch(next);
+}
+
 module.exports = {
+  getComments,
   postComment,
   delComment,
 };

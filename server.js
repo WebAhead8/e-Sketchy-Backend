@@ -25,6 +25,7 @@ server.delete("/products/:id", authUser, products.delProduct);
 // Comments Requests
 server.post("/comment", authUser, comments.postComment);
 server.delete("/comment/:id", authUser, comments.delComment);
+server.get("/comments/:id", comments.getComments);
 
 // Users Requests
 server.get("/users/", users.getAll);
