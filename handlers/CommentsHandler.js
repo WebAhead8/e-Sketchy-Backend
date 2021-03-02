@@ -1,8 +1,8 @@
 const model = require("../model/Comments");
 
 function postComment(req, res, next) {
-  const newComment = req.body;
-  console.log("handler " + req.body);
+  const newComment = req.body.addComment;
+  console.log("handler ", req.body);
   model
     .addComment(newComment)
     .then((Comments) => {
