@@ -6,6 +6,7 @@ const users = require("./handlers/users");
 const authUser = require("./middleware/auth");
 const errorHandler = require("./middleware/error");
 const cors = require("cors");
+const auth = require("./middleware/auth");
 
 const server = express();
 server.use(express.json());
@@ -25,14 +26,14 @@ server.post("/products", products.postProduct);
 server.delete("/products/:id", products.delProduct);
 
 // Comments Requests
-server.post("/comment", comments.postComment);
-server.delete("/comment/:id",  comments.delComment);
+server.post("/comment", auth, comments.postComment);
+server.delete("/comment/:id", comments.delComment);
 server.get("/comments/:id", comments.getComments);
 
 // Users Requests
 server.get("/users/", users.getAll);
 server.get("/users/:id", users.get);
-server.post("/users",  users.postUsers);
+server.post("/users", users.postUsers);
 server.get("/login", users.login);
 server.get("/login/me", users.getUserByToken);
 server.post("/login", users.login);
