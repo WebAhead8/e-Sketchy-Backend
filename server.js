@@ -5,10 +5,12 @@ const comments = require("./handlers/CommentsHandler");
 const users = require("./handlers/users");
 const authUser = require("./middleware/auth");
 const errorHandler = require("./middleware/error");
+const cors = require("cors");
 
 const server = express();
 server.use(express.json());
 server.use(errorHandler);
+server.use(cors());
 
 server.get("/", (reg, res) => {
   res.send("<h1> Welcome To e-Sketchy API </h1>");
@@ -32,7 +34,7 @@ server.get("/users/", users.getAll);
 server.get("/users/:id", users.get);
 server.post("/users", authUser, users.postUsers);
 server.get("/login", users.login);
-server.post("/login/me", users.login);
+server.get("/login/me", users.getUserByToken);
 server.post("/login", users.login);
 server.put("/users/:id", authUser, users.put);
 

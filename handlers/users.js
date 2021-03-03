@@ -75,9 +75,8 @@ function put(req, res, next) {
 }
 
 function getUserByToken(req, res, next) {
-  const token = req.body.access_token;
+  const token = req.headers.authorization;
   const userID = jwt.verify(token, process.env.JWT_SECRET);
-
   model
     .getUserById(userID.user)
     .then((result) => {
