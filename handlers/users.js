@@ -5,6 +5,15 @@ const model = require("../model/users");
 dotenv.config();
 const SECRET = process.env.JWT_SECRET;
 
+function getAll(req, res, next) {
+  model
+    .getAllUser()
+    .then((user) => {
+      res.send(user);
+    })
+    .catch(next);
+}
+
 function get(req, res, next) {
   const id = req.params.id;
   model
@@ -66,4 +75,21 @@ function put(req, res, next) {
     .catch(next);
 }
 
-module.exports = { get, postUsers, login, put };
+function getUserByToken(req, res, next) {
+  const token = req.headers.authorization;
+  const userID = jwt.verify(token, process.env.JWT_SECRET);
+  model
+    .getUserById(userID.user)
+    .then((result) => {
+      if (result) {
+        res.status(200).send(result);
+      } else {
+        const error = new Error("no user Found");
+        error.status = 404;
+        next(error);
+      }
+    })
+    .catch(next);
+}
+
+module.exports = { get, getAll, postUsers, login, put, getUserByToken };

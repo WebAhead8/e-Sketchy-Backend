@@ -6,6 +6,7 @@ dotenv.config();
 const SECRET = process.env.JWT_SECRET;
 
 function verifyUser(req, res, next) {
+  console.log("helloooo", req.headers);
   const authHeader = req.headers.authorization;
   if (!authHeader) {
     const error = new Error("Authorization header is required");
@@ -15,6 +16,7 @@ function verifyUser(req, res, next) {
     const token = authHeader.replace("Bearer ", "");
     try {
       const tokenData = jwt.verify(token, SECRET);
+
       model
         .getUserById(tokenData.user)
         .then((user) => {
