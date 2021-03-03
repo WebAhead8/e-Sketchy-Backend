@@ -11,7 +11,8 @@ if (process.env.NODE_ENV === "production") {
 
 const db = new pg.Pool({
   connectionString,
-  ssl: { rejectUnauthorized: false },
+  ...(process.env.NODE_ENV === "production" && {
+    ssl: { rejectUnauthorized: false },
+  }),
 });
-
 module.exports = db;
