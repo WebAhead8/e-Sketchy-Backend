@@ -22,6 +22,7 @@ function postUsers(req, res, next) {
     .createUser(userData)
     .then((user) => {
       const token = jwt.sign({ user: user.id }, SECRET, { expiresIn: "1h" });
+      console.log({ user: user.id });
       const response = {
         username: user.username,
         user_pass: user.user_pass,

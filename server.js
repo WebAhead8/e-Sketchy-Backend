@@ -5,6 +5,7 @@ const comments = require("./handlers/CommentsHandler");
 const users = require("./handlers/users");
 const errorHandler = require("./middleware/error");
 const cors = require("cors");
+const auth = require("./middleware/auth");
 
 const server = express();
 server.use(cors());
@@ -24,7 +25,7 @@ server.post("/products", products.postProduct);
 server.delete("/products/:id", products.delProduct);
 
 // Comments Requests
-server.post("/comment", comments.postComment);
+server.post("/comment", auth, comments.postComment);
 server.delete("/comment/:id", comments.delComment);
 server.get("/comments/:id", comments.getComments);
 

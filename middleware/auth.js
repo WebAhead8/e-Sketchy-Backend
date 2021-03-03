@@ -1,7 +1,7 @@
 const dotenv = require("dotenv");
 const jwt = require("jsonwebtoken");
 const model = require("../model/users");
-
+// const model = require("../model/Comments");
 dotenv.config();
 const SECRET = process.env.JWT_SECRET;
 
