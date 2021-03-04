@@ -40,3 +40,5 @@ server.post("/login", users.login);
 server.put("/users/:id", users.put);
 
 server.listen(PORT, () => console.log(`Listening on http://localhost:${PORT}`));
+
+module.exports = server;
