@@ -23,9 +23,15 @@ function delComment(id) {
     });
 }
 
-function getComments(id) {
+function getComments(prod_id) {
   return db
-    .query(`SELECT * FROM comments WHERE id = ($1)`, [id])
+    .query(
+      `SELECT prod_id,user_id,username,comment 
+    FROM comments
+    INNER JOIN users ON comments.user_id = users.id
+     WHERE prod_id = ($1)`,
+      [prod_id]
+    )
     .then((result) => {
       return result.rows;
     });

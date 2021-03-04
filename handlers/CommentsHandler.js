@@ -26,7 +26,7 @@ function getComments(req, res, next) {
   model
     .getComments(id)
     .then((data) => {
-      res.send(data);
+      res.status(200).send(data);
     })
     .catch(next);
 }
