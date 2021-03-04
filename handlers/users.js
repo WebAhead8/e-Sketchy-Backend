@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 const model = require("../model/users");
+const bcrypt = require("bcryptjs");
 
 dotenv.config();
 const SECRET = process.env.JWT_SECRET;
@@ -26,22 +27,30 @@ function get(req, res, next) {
 
 function postUsers(req, res, next) {
   const userData = req.body;
-  console.log("printing user data from users ", req.body);
-  model
-    .createUser(userData)
-    .then((user) => {
-      const token = jwt.sign({ user: user.id }, SECRET, { expiresIn: "1h" });
-      console.log({ user: user.id });
-      const response = {
-        username: user.username,
-        user_pass: user.user_pass,
-        email: user.email,
-        loc: user.loc,
-        access_token: token,
-      };
-      res.status(201).send(response);
-    })
-    .catch(next);
+  const hashPass = req.body.user_pass;
+
+  bcrypt
+    .genSalt(10)
+    .then((salt) => bcrypt.hash(hashPass, salt))
+    .then((hash) => {
+      userData.user_pass = hash;
+      model
+        .createUser(userData)
+        .then((user) => {
+          const token = jwt.sign({ user: user.id }, SECRET, {
+            expiresIn: "1h",
+          });
+          const response = {
+            username: user.username,
+            user_pass: hash,
+            email: user.email,
+            loc: user.loc,
+            access_token: token,
+          };
+          res.status(201).send(response);
+        })
+        .catch(next);
+    });
 }
 
 function login(req, res, next) {
@@ -50,13 +59,23 @@ function login(req, res, next) {
   model
     .getUser(email)
     .then((user) => {
-      if (password !== user.user_pass) {
-        const error = new Error("Unauthorized");
-        error.status = 401;
-        next(error);
+      if (user) {
+        bcrypt.compare(password, user.user_pass).then((match) => {
+          if (!match) {
+            const error = new Error("Incorrect Password");
+            status = 404;
+            next(error);
+          } else {
+            const token = jwt.sign({ user: user.id }, SECRET, {
+              expiresIn: "1h",
+            });
+            res.status(200).send({ access_token: token, user: user.username });
+          }
+        });
       } else {
-        const token = jwt.sign({ user: user.id }, SECRET, { expiresIn: "1h" });
-        res.status(200).send({ access_token: token, user: user.username });
+        const error = new Error("no user Found");
+        error.status = 404;
+        next(error);
       }
     })
     .catch(next);
@@ -80,9 +99,9 @@ function getUserByToken(req, res, next) {
   const userID = jwt.verify(token, process.env.JWT_SECRET);
   model
     .getUserById(userID.user)
-    .then((result) => {
-      if (result) {
-        res.status(200).send(result);
+    .then((user) => {
+      if (user) {
+        res.status(200).send(user);
       } else {
         const error = new Error("no user Found");
         error.status = 404;

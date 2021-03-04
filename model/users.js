@@ -10,7 +10,6 @@ function getAllUser() {
 
 function createUser(user) {
   const values = [user.username, user.user_pass, user.email, user.loc];
-  console.log(values);
   return db
     .query(
       "INSERT INTO users(username, user_pass, email,loc) VALUES($1, $2, $3,$4)  returning *",
